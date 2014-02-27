@@ -21,8 +21,10 @@ class FixtureSupportSpec extends Specification with BeforeAfterExample {
     additionalConfiguration = Map(
       "db.default.fixtures.test" -> List("users.sql", "project.sql").asJava,
       "db.secondary.fixtures.test" -> "a.sql",
-      "db.default.driver" -> "org.h2.Driver",
-      "db.default.url" -> "jdbc:h2:mem:default;DB_CLOSE_DELAY=-1",
+      "db.default.driver" -> "com.mysql.jdbc.Driver",
+      "db.default.url" -> "jdbc:mysql://localhost/sa",
+      //"db.default.driver" -> "org.h2.Driver",
+      //"db.default.url" -> "jdbc:h2:mem:default;DB_CLOSE_DELAY=-1",
       "db.default.user" -> "sa",
       "db.default.password" -> "sa",
       "db.secondary.driver" -> "org.h2.Driver",
@@ -38,6 +40,13 @@ class FixtureSupportSpec extends Specification with BeforeAfterExample {
     "has #fixtures" in {
       running(fakeApp) {
         fixtureSupport.fixtures must have size 2
+      }
+    }
+
+    "run fixtures" in {
+      running(fakeApp) {
+        fixtureSupport.loadFixtures
+        success
       }
     }
 
