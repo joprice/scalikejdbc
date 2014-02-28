@@ -86,10 +86,8 @@ trait FixtureSupport {
       for {
         command <- script.split(";") if !command.trim.isEmpty
       } {
-        println(s"running command $command")
         SQL(command).update.apply()
       }
-      //SQL(script).update.apply()
     }
   }
 
