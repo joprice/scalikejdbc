@@ -2,12 +2,14 @@ import sbt._
 import Keys._
 
 import play.Project._
+import bintray.Plugin._
+import bintray.Keys._
 
 object ScalikeJDBCProjects extends Build {
 
   // [NOTE] Execute the following to bump version
   // sbt "g version 1.3.8-SNAPSHOT"
-  lazy val _version = "1.7.4-SNAPSHOT"
+  lazy val _version = "1.7.4.1"
 
   // published dependency version
   lazy val _slf4jApiVersion = "1.7.5"
@@ -23,18 +25,15 @@ object ScalikeJDBCProjects extends Build {
   lazy val _specs2Scala29Version = "1.12.4.1"
   lazy val _specs2Scala210Version = "2.3.7"
 
-  lazy val baseSettings = Defaults.defaultSettings ++ Seq(
-    organization := "org.scalikejdbc",
+  lazy val baseSettings = Defaults.defaultSettings ++ bintraySettings ++ Seq(
+    organization := "com.github.joprice",
     version := _version,
-    publishTo <<= version { (v: String) => _publishTo(v) },
-    publishMavenStyle := true,
-    resolvers ++= _resolvers,
-    scalacOptions ++= _scalacOptions,
     publishMavenStyle := true,
     publishArtifact in Test := false,
-    pomIncludeRepository := { x => false },
-    pomExtra := _pomExtra
-  )
+    resolvers ++= _resolvers,
+    scalacOptions ++= _scalacOptions,
+    licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0.html"))
+  ) 
 
   // scalikejdbc (core library)
   lazy val scalikejdbc = Project(

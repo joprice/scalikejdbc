@@ -23,3 +23,4 @@ addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.2.2-RC2")
 
 addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.1.3")
 
+addSbtPlugin("me.lessis" % "bintray-sbt" % "0.1.1")
